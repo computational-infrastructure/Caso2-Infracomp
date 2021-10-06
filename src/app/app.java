@@ -12,6 +12,8 @@ public class app
     static int numMarcosDePaginaRAM;
     static int numPaginasProceso;
     static int numReferencias;
+    static int numPaginasCargadas;
+    static int numFallos;
     static Hashtable<Integer, Pagina> tabla;
     static ArrayList<String> secuenciaReferencias = new ArrayList<>();
 
@@ -52,10 +54,28 @@ public class app
         for (int i = 0; i<numMarcosDePaginaRAM; i++)
         {
             Pagina pag = new Pagina(i);
-            pag.load();
             tabla.put(i,pag);
         }
         System.out.println(tabla);
     }
 
+    public static void cargarPagina()
+    {
+        numPaginasCargadas +=1;
+    }
+
+    public static void falloGenerado()
+    {
+        numFallos += 1;
+    }
+
+    public static int darNumPagCargadas()
+    {
+        return numPaginasCargadas;
+    }
+
+    public static int darNumPagRAM()
+    {
+        return numMarcosDePaginaRAM;
+    }
 }
