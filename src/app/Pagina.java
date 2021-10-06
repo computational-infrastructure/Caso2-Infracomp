@@ -35,31 +35,31 @@ public class Pagina
         return this.present;
     }
 
-    public void reference()
+    public synchronized void reference()
     {
         this.R = true;
     }
 
-    public void modify()
+    public synchronized void modify()
     {
         this.R = true;
         this.M = true;
     }
 
-    public void reset()
+    public synchronized void reset()
     {
         this.R = false;
         this.M = false;
     }
 
-    public void load()
+    public synchronized void load()
     {
         this.present = true;
         this.R = false;
         this.M = false;
     }
 
-    public void unload()
+    public synchronized void unload()
     {
         this.present = false;
         this.R = false;

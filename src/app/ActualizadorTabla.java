@@ -33,7 +33,7 @@ public class ActualizadorTabla extends Thread
         
     }
 
-    private synchronized void actualizarTabla(int numPagina, String operacion) throws InterruptedException
+    private void actualizarTabla(int numPagina, String operacion) throws InterruptedException
     {
         Pagina page = tabla.get(numPagina);
         if (page.getPresent() == false && app.darNumPagCargadas() < app.darNumPagRAM())
