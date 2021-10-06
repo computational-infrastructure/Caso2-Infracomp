@@ -12,10 +12,8 @@ public class app
     static int numMarcosDePaginaRAM;
     static int numPaginasProceso;
     static int numReferencias;
+    static Hashtable<Integer, Pagina> tabla;
     static ArrayList<String> secuenciaReferencias = new ArrayList<>();
-    int capacidad = 0;
-    
-    Hashtable<Integer, Pagina> tabla = new Hashtable<>(capacidad);
 
     public static void cargarDatos() {
 		Scanner sc = new Scanner(System.in);
@@ -49,6 +47,15 @@ public class app
     public static void main(String[] args)
     {
         cargarDatos();
+        tabla = new Hashtable<>(numMarcosDePaginaRAM);
+
+        for (int i = 0; i<numMarcosDePaginaRAM; i++)
+        {
+            Pagina pag = new Pagina(i);
+            pag.load();
+            tabla.put(i,pag);
+        }
+        System.out.println(tabla);
     }
 
 }
