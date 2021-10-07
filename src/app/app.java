@@ -1,7 +1,6 @@
 package app;
 import java.util.ArrayList;
-import java.util.Hashtable;
-
+import java.util.concurrent.ConcurrentHashMap;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
@@ -14,7 +13,7 @@ public class app
     static int numReferencias;
     static int numPaginasCargadas;
     static int numFallos;
-    static Hashtable<Integer, Pagina> tabla;
+    static ConcurrentHashMap<Integer, Pagina> tabla;
     static ArrayList<String> secuenciaReferencias = new ArrayList<>();
 
     public static void cargarDatos() {
@@ -49,7 +48,7 @@ public class app
     public static void main(String[] args)
     {
         cargarDatos();
-        tabla = new Hashtable<>(numMarcosDePaginaRAM);
+        tabla = new ConcurrentHashMap<>(numMarcosDePaginaRAM);
 
         for (int i = 0; i<numMarcosDePaginaRAM; i++)
         {

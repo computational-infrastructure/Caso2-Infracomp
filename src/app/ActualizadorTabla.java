@@ -1,14 +1,14 @@
 package app;
 import java.util.ArrayList;
-import java.util.Hashtable;
+import java.util.concurrent.ConcurrentHashMap;
 
 public class ActualizadorTabla extends Thread
 {
     private ArrayList<String> referencias;
-    private Hashtable<Integer, Pagina> tabla;
+    private ConcurrentHashMap<Integer, Pagina> tabla;
     private int cantidadReferencias;
 
-    public ActualizadorTabla(ArrayList<String> referencias, Hashtable<Integer, Pagina> tabla, int cantidadReferencias)
+    public ActualizadorTabla(ArrayList<String> referencias, ConcurrentHashMap<Integer, Pagina> tabla, int cantidadReferencias)
     {
         this.referencias = referencias;
         this.tabla = tabla;
