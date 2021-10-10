@@ -36,12 +36,12 @@ public class ActualizadorTabla extends Thread
     private void actualizarTabla(int numPagina, String operacion) throws InterruptedException
     {
         Pagina page = tabla.get(numPagina);
-        if (page.getPresent() == false && app.darNumPagCargadas() < app.darNumPagRAM())
+        if (page.isLoaded() == false && app.darNumPagCargadas() < app.darNumPagRAM())
         {
             page.load();
             app.cargarPagina();
         }
-        else if(page.getPresent() == false)
+        else if(page.isLoaded() == false)
         {
             app.falloGenerado();
             //Algoritmo de reemplazo

@@ -3,7 +3,7 @@ package app;
 public class Pagina 
 {
     private int numPagina;
-    private boolean present;
+    private boolean loaded;
     private boolean M;
     private boolean R;
 
@@ -12,7 +12,7 @@ public class Pagina
         this.numPagina = numPagina;
         this.M = false;
         this.R = false;
-        this.present = false;
+        this.loaded = false;
     }
 
     public int getNumPagina()
@@ -30,9 +30,9 @@ public class Pagina
         return this.R;
     }
 
-    public boolean getPresent()
+    public boolean isLoaded()
     {
-        return this.present;
+        return this.loaded;
     }
 
     public synchronized void reference()
@@ -54,14 +54,14 @@ public class Pagina
 
     public synchronized void load()
     {
-        this.present = true;
+        this.loaded = true;
         this.R = false;
         this.M = false;
     }
 
     public synchronized void unload()
     {
-        this.present = false;
+        this.loaded = false;
         this.R = false;
         this.M = false;
     }

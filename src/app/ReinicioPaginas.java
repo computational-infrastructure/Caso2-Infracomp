@@ -20,7 +20,7 @@ public class ReinicioPaginas extends Thread
             for (Integer key : tabla.keySet()) 
             {
                 Pagina pag = tabla.get(key);
-                if (pag.getPresent())
+                if (pag.isLoaded())
                 {
                     pag.reset();
                     tabla.replace(key, pag);
