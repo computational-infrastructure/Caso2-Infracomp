@@ -34,6 +34,7 @@ public class app
 				carga = true;
                 lector.close();
 				sc.close();
+                numPaginasCargadas = 0;
 			} catch (FileNotFoundException ex) {
 				System.out.println("No se encontró el archivo.");
 				System.out.println("Por favor ingresa la ruta del archivo de propiedades:");
