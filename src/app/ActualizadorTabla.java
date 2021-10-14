@@ -1,4 +1,5 @@
 package app;
+
 import java.util.ArrayList;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -36,14 +37,15 @@ public class ActualizadorTabla extends Thread
     private void actualizarTabla(int numPagina, String operacion) throws InterruptedException
     {
         Pagina page = tabla.get(numPagina);
-        if (page.isLoaded() == false && app.darNumPagCargadas() < app.darNumPagRAM())
+        if (page.isLoaded() == false && App.darNumPagCargadas() < App.darNumPagRAM())
         {
             page.load();
-            app.cargarPagina();
+            App.falloGenerado();
+            App.cargarPagina();
         }
         else if(page.isLoaded() == false)
         {
-            app.falloGenerado();
+            App.falloGenerado();
             //Algoritmo de reemplazo
         }
         if(operacion.equals("r"))

@@ -4,7 +4,7 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
-public class app
+public class App
 {
     static String pathToProperties = "config.txt";
     static boolean carga = false;
