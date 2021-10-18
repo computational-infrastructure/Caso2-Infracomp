@@ -13,11 +13,11 @@ public class ReinicioPaginas extends Thread {
 
 	public void run() {
 		while (!terminado) {
-			for (Integer key : tabla.keySet()) {
-				Pagina pag = tabla.get(key);
+			for (int i : App.RAM) {
+				Pagina pag = tabla.get(i);
 				if (pag.isLoaded()) {
 					pag.reset();
-					tabla.replace(key, pag);
+					tabla.replace(i, pag);
 				}
 			}
 			try {
