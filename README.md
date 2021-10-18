@@ -1,4 +1,4 @@
-# Caso2-Infracomp
+# Second Case - InfraComp
 
 Prototype of a virtual memory administration system that simulates process behavior according to available resources.
 
