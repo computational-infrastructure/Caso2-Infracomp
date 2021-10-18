@@ -1,6 +1,5 @@
 package app;
 
-public class AlgoritmoActualizacion extends Thread
-{
+public class AlgoritmoActualizacion extends Thread {
 
 }
