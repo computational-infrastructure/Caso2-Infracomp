@@ -43,6 +43,14 @@ public class Pagina {
 		this.M = false;
 	}
 
+	public synchronized void resetR() {
+		this.R = false;
+	}
+
+	public synchronized void resetM() {
+		this.M = false;
+	}
+
 	public synchronized void load() {
 		this.loaded = true;
 		this.R = false;

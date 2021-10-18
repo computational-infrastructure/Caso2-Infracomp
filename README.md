@@ -2,6 +2,10 @@
 
 Prototype of a virtual memory administration system that simulates process behavior according to available resources.
 
+## Usage
+
+1. Execute `App.java`
+
 ## License
 
 [![License](http://img.shields.io/:license-mit-blue.svg?style=flat-square)](http://badges.mit-license.org)

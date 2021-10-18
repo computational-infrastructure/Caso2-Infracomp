@@ -18,7 +18,6 @@ public class ActualizadorTabla extends Thread {
 	public void run() {
 		for (int i = 0; i < cantidadReferencias; i++) {
 			String[] referencia = referencias.get(i).split(",");
-			;
 			Integer numPagina = Integer.parseInt(referencia[0]);
 			System.out.println(numPagina);
 			String operacion = referencia[1];
@@ -34,13 +33,14 @@ public class ActualizadorTabla extends Thread {
 
 	private void actualizarTabla(int numPagina, String operacion) throws InterruptedException {
 		Pagina page = tabla.get(numPagina);
+		// TODO: ask why first reference is not page error.
 		if (page.isLoaded() == false && App.darNumPagCargadas() < App.darNumPagRAM()) {
 			page.load();
 			App.falloGenerado();
 			App.cargarPagina();
 		} else if (page.isLoaded() == false) {
 			App.falloGenerado();
-			// Algoritmo de reemplazo
+			// TODO: Algoritmo de reemplazo add always when a reference occurs
 		}
 		if (operacion.equals("r")) {
 			page.reference();
