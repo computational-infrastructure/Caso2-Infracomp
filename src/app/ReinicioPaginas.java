@@ -1,11 +1,10 @@
 package app;
 
-import java.util.ArrayList;
 import java.util.concurrent.ConcurrentHashMap;
 
 public class ReinicioPaginas extends Thread {
 	private ConcurrentHashMap<Integer, Pagina> tabla;
-	private boolean terminado;
+	private static boolean terminado;
 
 	public ReinicioPaginas(ConcurrentHashMap<Integer, Pagina> tabla) {
 		this.tabla = tabla;
@@ -26,5 +25,10 @@ public class ReinicioPaginas extends Thread {
 				Thread.sleep(20);
 			} catch (Exception e) {}
 		}
+	}
+
+	public static void terminar()
+	{
+		terminado = true;
 	}
 }

@@ -31,10 +31,11 @@ public class ActualizadorTabla extends Thread {
 				e.printStackTrace();
 			}
 		}
+        ReinicioPaginas.terminar();
 		try {
 			barrera.await();
-		} catch (InterruptedException | BrokenBarrierException e) {
-			// TODO Auto-generated catch block
+		} catch (InterruptedException | BrokenBarrierException e) 
+        {
 			e.printStackTrace();
 		}
 	}
