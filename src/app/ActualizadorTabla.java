@@ -7,21 +7,21 @@ public class ActualizadorTabla extends Thread {
 	private ArrayList<String> referencias;
 	private ConcurrentHashMap<Integer, Pagina> tabla;
 	private int cantidadReferencias;
-
+	static ArrayList<Integer> RAM;
+	
 	public ActualizadorTabla(ArrayList<String> referencias, ConcurrentHashMap<Integer, Pagina> tabla,
-			int cantidadReferencias) {
+			int cantidadReferencias, ArrayList<Integer> RAM) {
 		this.referencias = referencias;
 		this.tabla = tabla;
 		this.cantidadReferencias = cantidadReferencias;
+		this.RAM = RAM;
 	}
 
 	public void run() {
 		for (int i = 0; i < cantidadReferencias; i++) {
 			String[] referencia = referencias.get(i).split(",");
 			Integer numPagina = Integer.parseInt(referencia[0]);
-			System.out.println(numPagina);
 			String operacion = referencia[1];
-			System.out.println(operacion);
 			try {
 				actualizarTabla(numPagina, operacion);
 			} catch (InterruptedException e) {
@@ -36,11 +36,11 @@ public class ActualizadorTabla extends Thread {
 		// TODO: ask why first reference is not page error.
 		if (page.isLoaded() == false && App.darNumPagCargadas() < App.darNumPagRAM()) {
 			page.load();
+			RAM.add(numPagina);
 			App.falloGenerado();
 			App.cargarPagina();
 		} else if (page.isLoaded() == false) {
 			App.falloGenerado();
-			// TODO: Algoritmo de reemplazo add always when a reference occurs
 		}
 		if (operacion.equals("r")) {
 			page.reference();

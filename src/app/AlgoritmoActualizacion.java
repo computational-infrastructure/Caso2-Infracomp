@@ -5,6 +5,7 @@ import java.util.concurrent.ConcurrentHashMap;
 
 public class AlgoritmoActualizacion extends Thread {
 	private ConcurrentHashMap<Integer, Pagina> tabla;
+	ArrayList<Integer> RAM;
 	// Class 0: not referenced, not modified.
 	ArrayList<Pagina> c0;
 	// Class 1: not referenced, modified.
@@ -14,8 +15,9 @@ public class AlgoritmoActualizacion extends Thread {
 	// Class 3: referenced, modified.
 	ArrayList<Pagina> c3;
 
-	public AlgoritmoActualizacion(ConcurrentHashMap<Integer, Pagina> tabla) {
+	public AlgoritmoActualizacion(ConcurrentHashMap<Integer, Pagina> tabla,  ArrayList<Integer> RAM) {
 		this.tabla = tabla;
+		this.RAM = RAM;
 	}
 
 	private void getBitPageCategories() {
@@ -57,6 +59,7 @@ public class AlgoritmoActualizacion extends Thread {
 		Integer pageNum = selectedClass.get(index).getNumPagina();
 		Pagina page = tabla.get(pageNum);
 		page.unload();
+		RAM.remove(Integer.valueOf(pageNum));
 	}
 
 	public void run() {

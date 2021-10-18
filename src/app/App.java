@@ -15,7 +15,8 @@ public class App {
 	static int numPaginasCargadas;
 	static int numFallos;
 	static ConcurrentHashMap<Integer, Pagina> tabla;
-	static ArrayList<String> secuenciaReferencias = new ArrayList<>();
+	static ArrayList<Integer> RAM = new ArrayList<>();
+    static ArrayList<String> secuenciaReferencias = new ArrayList<>();
 
 	public static void cargarDatos() {
 		Scanner sc = new Scanner(System.in);
@@ -57,17 +58,17 @@ public class App {
 
 	public static void main(String[] args) {
 		cargarDatos();
-		tabla = new ConcurrentHashMap<>(numMarcosDePaginaRAM);
+		tabla = new ConcurrentHashMap<>(numPaginasProceso);
 
-		for (int i = 0; i < numMarcosDePaginaRAM; i++) {
+		for (int i = 0; i < numPaginasProceso; i++) {
 			Pagina pag = new Pagina(i);
 			tabla.put(i, pag);
 		}
 
-		new ActualizadorTabla(secuenciaReferencias, tabla, numReferencias).run();
+		new ActualizadorTabla(secuenciaReferencias, tabla, numReferencias, RAM).run();
+		new AlgoritmoActualizacion(tabla, RAM);
 
-		// TODO: add number
-		System.out.println("El número de fallas de página generadas es: ");
+		System.out.println("El número de fallas de página generadas es: " + numFallos);
 	}
 
 	public static void cargarPagina() {

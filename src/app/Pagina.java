@@ -34,7 +34,6 @@ public class Pagina {
 	}
 
 	public synchronized void modify() {
-		this.R = true;
 		this.M = true;
 	}
 
@@ -53,13 +52,11 @@ public class Pagina {
 
 	public synchronized void load() {
 		this.loaded = true;
-		this.R = false;
-		this.M = false;
+		reset();
 	}
 
 	public synchronized void unload() {
 		this.loaded = false;
-		this.R = false;
-		this.M = false;
+		reset();
 	}
 }
