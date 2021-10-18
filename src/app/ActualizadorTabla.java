@@ -1,22 +1,25 @@
 package app;
 
 import java.util.ArrayList;
+import java.util.concurrent.BrokenBarrierException;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.CyclicBarrier;
 
 public class ActualizadorTabla extends Thread {
 	private ArrayList<String> referencias;
 	private ConcurrentHashMap<Integer, Pagina> tabla;
 	private int cantidadReferencias;
-	static ArrayList<Integer> RAM;
-	
+	private CyclicBarrier barrera;
+
 	public ActualizadorTabla(ArrayList<String> referencias, ConcurrentHashMap<Integer, Pagina> tabla,
-			int cantidadReferencias, ArrayList<Integer> RAM) {
+			int cantidadReferencias, CyclicBarrier barrera) {
 		this.referencias = referencias;
 		this.tabla = tabla;
 		this.cantidadReferencias = cantidadReferencias;
-		this.RAM = RAM;
+		this.barrera = barrera;
 	}
 
+	@Override
 	public void run() {
 		for (int i = 0; i < cantidadReferencias; i++) {
 			String[] referencia = referencias.get(i).split(",");
@@ -28,19 +31,24 @@ public class ActualizadorTabla extends Thread {
 				e.printStackTrace();
 			}
 		}
-
+		try {
+			barrera.await();
+		} catch (InterruptedException | BrokenBarrierException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
-	private void actualizarTabla(int numPagina, String operacion) throws InterruptedException {
+	private synchronized void actualizarTabla(int numPagina, String operacion) throws InterruptedException {
 		Pagina page = tabla.get(numPagina);
-		// TODO: ask why first reference is not page error.
-		if (page.isLoaded() == false && App.darNumPagCargadas() < App.darNumPagRAM()) {
+		if (page.isLoaded() == false && App.RAM.size() < App.numMarcosDePaginaRAM) {
 			page.load();
-			RAM.add(numPagina);
+			App.RAM.add(numPagina);
 			App.falloGenerado();
 			App.cargarPagina();
 		} else if (page.isLoaded() == false) {
 			App.falloGenerado();
+			new AlgoritmoActualizacion(tabla, numPagina).start();
 		}
 		if (operacion.equals("r")) {
 			page.reference();

@@ -4,7 +4,9 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.util.concurrent.BrokenBarrierException;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.CyclicBarrier;
 
 public class App {
 	static String pathToProperties = "";
@@ -16,7 +18,7 @@ public class App {
 	static int numFallos;
 	static ConcurrentHashMap<Integer, Pagina> tabla;
 	static ArrayList<Integer> RAM = new ArrayList<>();
-    static ArrayList<String> secuenciaReferencias = new ArrayList<>();
+	static ArrayList<String> secuenciaReferencias = new ArrayList<>();
 
 	public static void cargarDatos() {
 		Scanner sc = new Scanner(System.in);
@@ -25,7 +27,7 @@ public class App {
 			try {
 				if (pathToProperties == "") {
 					System.out.print(
-							"Change input file path or just press enter for using the default path 'referencias/referencias8_128_75.txt'.");
+							"Change input file path or just press enter for using the default path 'referencias/referencias8_128_75.txt' \n");
 					pathToProperties = sc.nextLine();
 					if (pathToProperties == "") {
 						pathToProperties = "referencias/referencias8_128_75.txt";
@@ -65,8 +67,15 @@ public class App {
 			tabla.put(i, pag);
 		}
 
-		new ActualizadorTabla(secuenciaReferencias, tabla, numReferencias, RAM).run();
-		new AlgoritmoActualizacion(tabla, RAM);
+		CyclicBarrier barrera = new CyclicBarrier(2);
+
+		new ActualizadorTabla(secuenciaReferencias, tabla, numReferencias, barrera).start();
+
+		try {
+			barrera.await();
+		} catch (InterruptedException | BrokenBarrierException e) {
+			e.printStackTrace();
+		}
 
 		System.out.println("El número de fallas de página generadas es: " + numFallos);
 	}

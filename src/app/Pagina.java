@@ -52,11 +52,10 @@ public class Pagina {
 
 	public synchronized void load() {
 		this.loaded = true;
-		reset();
 	}
 
 	public synchronized void unload() {
 		this.loaded = false;
-		reset();
+		resetR();
 	}
 }
