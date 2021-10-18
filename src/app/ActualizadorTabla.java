@@ -17,8 +17,12 @@ public class ActualizadorTabla extends Thread {
 
 	public void run() {
 		for (int i = 0; i < cantidadReferencias; i++) {
-			Integer numPagina = Integer.parseInt(Character.toString(referencias.get(i).charAt(0)));
-			String operacion = Character.toString(referencias.get(i).charAt(2));
+			String[] referencia = referencias.get(i).split(",");
+			;
+			Integer numPagina = Integer.parseInt(referencia[0]);
+			System.out.println(numPagina);
+			String operacion = referencia[1];
+			System.out.println(operacion);
 			try {
 				actualizarTabla(numPagina, operacion);
 			} catch (InterruptedException e) {

@@ -37,7 +37,7 @@ public class App {
 				numPaginasProceso = Integer.parseInt(lector.nextLine());
 				numReferencias = Integer.parseInt(lector.nextLine());
 				while (lector.hasNextLine()) {
-					secuenciaReferencias.add("[" + lector.nextLine() + "]");
+					secuenciaReferencias.add(lector.nextLine());
 				}
 				System.out.println("Configuración cargada");
 				carga = true;
@@ -64,7 +64,10 @@ public class App {
 			tabla.put(i, pag);
 		}
 
-		System.out.println(tabla);
+		new ActualizadorTabla(secuenciaReferencias, tabla, numReferencias).run();
+
+		// TODO: add number
+		System.out.println("El número de fallas de página generadas es: ");
 	}
 
 	public static void cargarPagina() {
