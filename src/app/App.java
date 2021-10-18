@@ -70,6 +70,7 @@ public class App {
 		CyclicBarrier barrera = new CyclicBarrier(2);
 
 		new ActualizadorTabla(secuenciaReferencias, tabla, numReferencias, barrera).start();
+		new ReinicioPaginas(tabla).start();
 
 		try {
 			barrera.await();

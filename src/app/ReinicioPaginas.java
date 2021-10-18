@@ -1,5 +1,6 @@
 package app;
 
+import java.util.ArrayList;
 import java.util.concurrent.ConcurrentHashMap;
 
 public class ReinicioPaginas extends Thread {
@@ -13,19 +14,17 @@ public class ReinicioPaginas extends Thread {
 
 	public void run() {
 		while (!terminado) {
-			for (int i : App.RAM) {
-				Pagina pag = tabla.get(i);
-				if (pag.isLoaded()) {
-					pag.reset();
-					tabla.replace(i, pag);
-				}
-			}
 			try {
-				// Tiempo del reloj//
+				for (int i : App.RAM) {
+					Pagina pag = tabla.get(i);
+					if (pag.isLoaded()) {
+						pag.reset();
+						tabla.replace(i, pag);
+					}
+				}
+				// Tiempo del reloj
 				Thread.sleep(20);
-			} catch (InterruptedException e) {
-				e.printStackTrace();
-			}
+			} catch (Exception e) {}
 		}
 	}
 }
