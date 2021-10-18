@@ -27,6 +27,7 @@ public class ActualizadorTabla extends Thread {
 			String operacion = referencia[1];
 			try {
 				actualizarTabla(numPagina, operacion);
+                Thread.sleep(1);
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
@@ -57,6 +58,5 @@ public class ActualizadorTabla extends Thread {
 			page.modify();
 		}
 		tabla.replace(numPagina, page);
-		Thread.sleep(1);
 	}
 }
