@@ -1,13 +1,13 @@
 package app;
 
-import java.util.ArrayList;
-import java.util.concurrent.ConcurrentHashMap;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
 import java.util.Scanner;
+import java.util.concurrent.ConcurrentHashMap;
 
 public class App {
-	static String pathToProperties = "config.txt";
+	static String pathToProperties = "";
 	static boolean carga = false;
 	static int numMarcosDePaginaRAM;
 	static int numPaginasProceso;
@@ -22,13 +22,22 @@ public class App {
 		while (!carga) {
 			// Carga de datos del archivo Properties
 			try {
+				if (pathToProperties == "") {
+					System.out.print(
+							"Change input file path or just press enter for using the default path 'referencias/referencias8_128_75.txt'.");
+					pathToProperties = sc.nextLine();
+					if (pathToProperties == "") {
+						pathToProperties = "referencias/referencias8_128_75.txt";
+					}
+				}
 				File f = new File(pathToProperties);
+
 				Scanner lector = new Scanner(f);
 				numMarcosDePaginaRAM = Integer.parseInt(lector.nextLine());
 				numPaginasProceso = Integer.parseInt(lector.nextLine());
 				numReferencias = Integer.parseInt(lector.nextLine());
 				while (lector.hasNextLine()) {
-					secuenciaReferencias.add(lector.nextLine());
+					secuenciaReferencias.add("[" + lector.nextLine() + "]");
 				}
 				System.out.println("Configuración cargada");
 				carga = true;
@@ -54,6 +63,7 @@ public class App {
 			Pagina pag = new Pagina(i);
 			tabla.put(i, pag);
 		}
+
 		System.out.println(tabla);
 	}
 
